@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import OtaxMain from "@/pages/OtaxMain";
 import OtaxTools from "@/pages/OtaxTools";
+import OtaxChannel from "@/pages/OtaxChannel";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -13,6 +14,7 @@ function Router() {
     <Switch>
       <Route path="/" component={OtaxMain} />
       <Route path="/tools" component={OtaxTools} />
+      <Route path="/channel" component={OtaxChannel} />
       <Route component={NotFound} />
     </Switch>
   );
