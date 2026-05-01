@@ -25,10 +25,10 @@ export default function OtaxTools() {
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
 
   return (
-    <div className="relative min-h-screen flex flex-col" style={{ maxWidth: 480, margin: "0 auto" }}>
+    <div className="relative flex flex-col" style={{ maxWidth: 480, margin: "0 auto", minHeight: "100dvh" }}>
       <MatrixBackground />
 
-      <div className="relative z-10 flex flex-col min-h-screen">
+      <div className="relative z-10 flex flex-col">
 
         {/* Header */}
         <div className="header-bar">
@@ -66,7 +66,7 @@ export default function OtaxTools() {
           </div>
         </div>
 
-        <div className="flex-1 px-4 pb-4 overflow-y-auto pt-2 space-y-4">
+        <div style={{ padding: "8px 16px 8px", display: "flex", flexDirection: "column", gap: 16 }}>
 
           {/* ─── Profile Row ─── */}
           <div className="glass-card rounded-2xl p-4" data-testid="card-profile-tools">
