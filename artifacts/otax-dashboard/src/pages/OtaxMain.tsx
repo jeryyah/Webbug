@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import {
   Bug, Zap, CheckCircle, Smartphone, Send, ChevronLeft, ChevronRight,
-  Globe, Shield, Activity, Home, MessageCircle, Users, Settings
+  Globe, Shield, Activity, Home, Radio, Users, Settings
 } from "lucide-react";
 import MatrixBackground from "@/components/MatrixBackground";
 
@@ -307,9 +307,9 @@ export default function OtaxMain() {
             <Home size={20} style={{ color: "#00f0c8", filter: "drop-shadow(0 0 4px rgba(0,240,200,0.6))" }} />
             <span className="mono" style={{ fontSize: 9, color: "#00f0c8" }}>HOME</span>
           </button>
-          <button className="nav-btn" onClick={() => setLocation("/")} data-testid="nav-wa">
-            <MessageCircle size={20} style={{ color: "#3a5a6a" }} />
-            <span className="mono" style={{ fontSize: 9, color: "#3a5a6a" }}>WA</span>
+          <button className="nav-btn" onClick={() => setLocation("/channel")} data-testid="nav-channel">
+            <Radio size={20} style={{ color: "#3a5a6a" }} />
+            <span className="mono" style={{ fontSize: 9, color: "#3a5a6a" }}>CHANNEL</span>
           </button>
           <button className="nav-btn" onClick={() => setLocation("/tools")} data-testid="nav-social">
             <Users size={20} style={{ color: "#3a5a6a" }} />
