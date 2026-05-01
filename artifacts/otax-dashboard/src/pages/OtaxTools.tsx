@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 import {
   Server, Gamepad2, Zap, Wifi, Search, Download,
   Wrench, Rocket, Sparkles, Music, Bell, LogOut,
-  AlignJustify, Home, MessageCircle, Users, ChevronRight
+  AlignJustify, Home, Radio, Users, ChevronRight
 } from "lucide-react";
 import MatrixBackground from "@/components/MatrixBackground";
 
@@ -173,9 +173,9 @@ export default function OtaxTools() {
             <Home size={20} style={{ color: "#3a5a6a" }} />
             <span className="mono" style={{ fontSize: 9, color: "#3a5a6a" }}>HOME</span>
           </button>
-          <button className="nav-btn" data-testid="nav-wa">
-            <MessageCircle size={20} style={{ color: "#3a5a6a" }} />
-            <span className="mono" style={{ fontSize: 9, color: "#3a5a6a" }}>WA</span>
+          <button className="nav-btn" onClick={() => setLocation("/channel")} data-testid="nav-channel">
+            <Radio size={20} style={{ color: "#3a5a6a" }} />
+            <span className="mono" style={{ fontSize: 9, color: "#3a5a6a" }}>CHANNEL</span>
           </button>
           <button className="nav-btn active" data-testid="nav-tools">
             <Users size={20} style={{ color: "#00f0c8", filter: "drop-shadow(0 0 4px rgba(0,240,200,0.6))" }} />
