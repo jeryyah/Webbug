@@ -1,12 +1,15 @@
 import { useEffect, useRef } from "react";
 
-export default function MatrixBackground() {
+interface Props {
+  variant?: "cyan" | "red";
+}
+
+export default function MatrixBackground({ variant = "cyan" }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -17,80 +20,60 @@ export default function MatrixBackground() {
     resize();
     window.addEventListener("resize", resize);
 
-    const cols = Math.floor(canvas.width / 20);
+    const cols = Math.floor(canvas.width / 18);
     const drops: number[] = Array(cols).fill(1);
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノABCDEFX<>{}[];=+-*".split("");
+    const chars = "01アイウエオカキクケコABCDEFX<>{}[]=+-*".split("");
 
-    let frame = 0;
     const draw = () => {
-      frame++;
-      ctx.fillStyle = "rgba(6,9,19,0.07)";
+      ctx.fillStyle = "rgba(5,4,12,0.09)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.font = "13px 'Share Tech Mono', monospace";
+      ctx.font = "12px 'Share Tech Mono', monospace";
 
       for (let i = 0; i < drops.length; i++) {
         const char = chars[Math.floor(Math.random() * chars.length)];
-        const x = i * 20;
-        const y = drops[i] * 20;
+        const x = i * 18;
+        const y = drops[i] * 18;
+        const bright = Math.random();
 
-        const brightness = Math.random();
-        if (brightness > 0.96) {
-          ctx.fillStyle = "#ffffff";
-        } else if (brightness > 0.88) {
-          ctx.fillStyle = "rgba(0,240,200,0.9)";
+        if (variant === "red") {
+          if (bright > 0.97) ctx.fillStyle = "#ffffff";
+          else if (bright > 0.90) ctx.fillStyle = "rgba(255,45,85,0.75)";
+          else ctx.fillStyle = `rgba(${140 + Math.floor(Math.random() * 60)},0,${Math.floor(Math.random() * 30)},${0.15 + Math.random() * 0.18})`;
         } else {
-          ctx.fillStyle = `rgba(0,${Math.floor(80 + Math.random()*80)},${Math.floor(80 + Math.random()*60)},${0.25 + Math.random()*0.2})`;
+          if (bright > 0.97) ctx.fillStyle = "#ffffff";
+          else if (bright > 0.90) ctx.fillStyle = "rgba(0,240,200,0.7)";
+          else ctx.fillStyle = `rgba(0,${Math.floor(60 + Math.random() * 80)},${Math.floor(60 + Math.random() * 60)},${0.15 + Math.random() * 0.18})`;
         }
 
         ctx.fillText(char, x, y);
-
-        if (y > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
+        if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i]++;
       }
     };
 
-    const interval = setInterval(draw, 55);
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
+    const interval = setInterval(draw, 60);
+    return () => { clearInterval(interval); window.removeEventListener("resize", resize); };
+  }, [variant]);
+
+  const glowColor = variant === "red" ? "rgba(255,45,85,0.07)" : "rgba(0,240,200,0.07)";
+  const orb2Color = variant === "red" ? "rgba(255,45,85,0.09)" : "rgba(255,45,85,0.07)";
 
   return (
     <>
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: "fixed", inset: 0, zIndex: 0,
-          pointerEvents: "none", opacity: 0.35,
-          width: "100%", height: "100%"
-        }}
-      />
+      <canvas ref={canvasRef} style={{
+        position: "fixed", inset: 0, zIndex: 0,
+        pointerEvents: "none", opacity: 0.45,
+        width: "100%", height: "100%",
+      }} />
       <div className="bg-grid-overlay" />
-      <div className="bg-radial-glow" />
-      <div className="floating-orb" style={{
-        width: 300, height: 300,
-        background: "rgba(0,240,200,0.08)",
-        top: "5%", left: "60%",
-        animationDuration: "18s",
+      <div style={{
+        position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none",
+        background: variant === "red"
+          ? "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,10,40,0.12) 0%, transparent 70%)"
+          : "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,240,200,0.09) 0%, transparent 70%)",
       }} />
-      <div className="floating-orb" style={{
-        width: 200, height: 200,
-        background: "rgba(255,45,85,0.07)",
-        top: "55%", left: "10%",
-        animationDuration: "14s",
-        animationDelay: "-5s",
-      }} />
-      <div className="floating-orb" style={{
-        width: 150, height: 150,
-        background: "rgba(0,100,255,0.05)",
-        top: "80%", left: "70%",
-        animationDuration: "20s",
-        animationDelay: "-10s",
-      }} />
+      <div className="floating-orb" style={{ width: 280, height: 280, background: glowColor, top: "5%", left: "55%", animationDuration: "18s" }} />
+      <div className="floating-orb" style={{ width: 200, height: 200, background: orb2Color, top: "60%", left: "5%", animationDuration: "15s", animationDelay: "-5s" }} />
     </>
   );
 }
