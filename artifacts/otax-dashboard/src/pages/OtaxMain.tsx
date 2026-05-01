@@ -43,11 +43,14 @@ export default function OtaxMain() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col" style={{ maxWidth: 480, margin: "0 auto", background: "transparent" }}>
+    <div className="relative flex flex-col" style={{
+      maxWidth: 480, margin: "0 auto", background: "transparent",
+      minHeight: "100dvh",
+    }}>
       <MatrixBackground />
 
       {/* Content layer */}
-      <div className="relative z-10 flex flex-col min-h-screen">
+      <div className="relative z-10 flex flex-col">
 
         {/* Header */}
         <div className="header-bar">
@@ -68,7 +71,7 @@ export default function OtaxMain() {
           <div className="badge-version">v2.0</div>
         </div>
 
-        <div className="flex-1 px-4 pb-4 overflow-y-auto space-y-4 pt-2">
+        <div style={{ padding: "8px 16px 0", display: "flex", flexDirection: "column", gap: 16 }}>
 
           {/* ─── Profile Card ─── */}
           <div className="glass-card rounded-2xl p-5 scan-container" data-testid="card-profile">
@@ -274,7 +277,7 @@ export default function OtaxMain() {
         </div>
 
         {/* ─── Send Button ─── */}
-        <div className="px-4 pb-2">
+        <div className="px-4 pt-2 pb-2">
           <button
             className="send-btn"
             style={sent ? {
